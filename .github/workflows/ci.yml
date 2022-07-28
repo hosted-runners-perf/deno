@@ -3,16 +3,9 @@ name: ci
 on:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ !contains(github.event.pull_request.labels.*.name, 'test-flaky-ci') && github.head_ref || github.run_id }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: ${{ matrix.job }} ${{ matrix.profile }} ${{ matrix.os }}
-    if: |
-      github.event_name == 'push' ||
-      !startsWith(github.event.pull_request.head.label, 'denoland:')
     runs-on: ${{ matrix.os }}
     timeout-minutes: 90
     strategy:
