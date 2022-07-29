@@ -7,16 +7,12 @@ jobs:
   build:
     name: ${{ matrix.job }} ${{ matrix.profile }} ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 90
     strategy:
       matrix:
         include:
           - os: macos-12
             job: test
             profile: fastci
-          - os: macos-12
-            job: test
-            profile: release
           - os: ${{ github.repository == 'denoland/deno' && 'windows-2019-xl' || 'windows-2019' }}
             job: test
             profile: fastci
